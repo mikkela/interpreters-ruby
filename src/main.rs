@@ -1,6 +1,7 @@
 mod lexer;
 mod token;
 mod monkey;
+mod basic;
 
 use rustyline::error::ReadlineError;
 use rustyline::{DefaultEditor, Result};

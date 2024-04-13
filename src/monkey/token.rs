@@ -84,14 +84,14 @@ impl Tokenize<MonkeyToken> for MonkeyTokenizer {
         ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
     }
 
-    fn is_symbol_start_character(&self, ch: char) -> bool {
+    fn is_symbol_start_character(&self, ch: char, _ : char) -> bool {
         ch == '=' || ch == '+' || ch == '-' || ch == '!' ||
             ch == '/' || ch == '*' || ch == '<' || ch == '>' ||
             ch == ';' || ch == '(' || ch == ')' || ch == '{' ||
             ch == '}' || ch == ','
     }
 
-    fn is_symbol_part_character(&self, ch: char, s: &str) -> bool {
+    fn is_symbol_part_character(&self, ch: char, _:char, s: &str) -> bool {
         match s {
             "=" => ch == '=',
             "!" => ch == '=',
@@ -99,19 +99,19 @@ impl Tokenize<MonkeyToken> for MonkeyTokenizer {
         }
     }
 
-    fn is_numeric_start_character(&self, ch: char) -> bool {
+    fn is_numeric_start_character(&self, ch: char, _ : char) -> bool {
         MonkeyTokenizer::is_digit(ch)
     }
 
-    fn is_numeric_part_character(&self, ch: char, _: &str) -> bool {
+    fn is_numeric_part_character(&self, ch: char, _:char, _: &str) -> bool {
         MonkeyTokenizer::is_digit(ch)
     }
 
-    fn is_identifier_start_character(&self, ch: char) -> bool {
+    fn is_identifier_start_character(&self, ch: char, _ : char) -> bool {
         MonkeyTokenizer::is_letter(ch)
     }
 
-    fn is_identifier_part_character(&self, ch: char, _: &str) -> bool {
+    fn is_identifier_part_character(&self, ch: char, _:char, _: &str) -> bool {
         MonkeyTokenizer::is_letter(ch)
     }
 

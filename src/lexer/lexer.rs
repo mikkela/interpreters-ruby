@@ -23,22 +23,22 @@ impl<'a, T> Lexer<'a, T>  where
         if self.ch == '\0' {
             token = self.tokenizer.end_of_file_token();
         }
-        else if self.tokenizer.is_symbol_start_character(self.ch) {
-            token = self.read_token(|r, c, s| r.is_symbol_part_character(c, s));
-        } else if self.tokenizer.is_numeric_start_character(self.ch) {
-            token = self.read_token(|r, c, s| r.is_numeric_part_character(c, s));
-        } else if self.tokenizer.is_identifier_start_character(self.ch) {
-            token = self.read_token(|r, c, s| r.is_identifier_part_character(c, s));
+        else if self.tokenizer.is_symbol_start_character(self.ch, self.peek_next_char()) {
+            token = self.read_token(|r, c, next, s| r.is_symbol_part_character(c, next, s));
+        } else if self.tokenizer.is_numeric_start_character(self.ch, self.peek_next_char()) {
+            token = self.read_token(|r, c, next, s| r.is_numeric_part_character(c, next, s));
+        } else if self.tokenizer.is_identifier_start_character(self.ch, self.peek_next_char()) {
+            token = self.read_token(|r, c, next, s| r.is_identifier_part_character(c, next, s));
         }
 
         self.read_next_char();
         token
     }
 
-    fn read_token(&mut self, predicate: fn( Rc<dyn Tokenize<T>>, char, &str) -> bool) -> T {
+    fn read_token(&mut self, predicate: fn( Rc<dyn Tokenize<T>>, char, char, &str) -> bool) -> T {
         let start = self.position;
         let mut ch = self.peek_next_char();
-        while predicate(self.tokenizer.clone(), ch, &self.input[start..self.read_position]) {
+        while predicate(self.tokenizer.clone(), ch, self.peek_next_char(), &self.input[start..self.read_position]) {
             self.read_next_char();
             ch = self.peek_next_char();
         }
