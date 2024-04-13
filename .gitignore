@@ -17,3 +17,11 @@ Cargo.lock
 # Added by cargo
 
 /target
+/.idea/.gitignore
+/.idea/aws.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/fastRequest/fastRequestCurrentProjectLocalConfig.xml
+/.idea/interpreters.iml
+/.idea/modules.xml
+/.idea/codeStyles/Project.xml
+/.idea/vcs.xml
